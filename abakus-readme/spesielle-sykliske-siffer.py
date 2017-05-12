@@ -6,12 +6,13 @@ https://en.wikipedia.org/wiki/Circular_prime
 """
 
 
-def generate_primes(end):
-    """Generate prime numbers
+def generate_primes(limit):
+    """Generate prime numbers.
+
     Uses the Sieve of Erasthenes algorithm to generate
-    all primes up to and including end
+    all primes up to and including limit
     """
-    numbers = [_ for _ in range(2, end + 1)]
+    numbers = [_ for _ in range(2, limit + 1)]
 
     for i in range(ceil(sqrt(len(numbers)))):
         if numbers[i]:
@@ -27,7 +28,6 @@ def cycle_digit(number):
 def find_cyclic_primes(numbers):
     cyclic_numbers = []
     numbers_dict = dict([(str(number), True) for number in numbers])
-    print(numbers_dict)
     for number in numbers:
         current_number = str(number)
         cyclic = True
