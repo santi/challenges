@@ -1,2 +1,2 @@
 # challenges
-Repository for small programming contest assignments
+Repository for small programming challenges
