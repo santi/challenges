@@ -1,5 +1,5 @@
-#!/usr/bin/env python
-from math import sqrt, ceil
+#!/usr/bin/env python3
+from math import sqrt, floor
 """
 Assignment: What is the sum of all cyclic prime numbers between 0 and 1000000?
 https://en.wikipedia.org/wiki/Circular_prime
@@ -10,35 +10,44 @@ def generate_primes(limit):
     """Generate prime numbers.
 
     Uses the Sieve of Erasthenes algorithm to generate
-    all primes up to and including limit
+    all primes up to and including limit.
+    The time complexity of this algorithm is O(n log log n).
     """
     numbers = [_ for _ in range(2, limit + 1)]
 
-    for i in range(ceil(sqrt(len(numbers)))):
+    for i in range(floor(sqrt(len(numbers)))):
         if numbers[i]:
-            for multiple in range(2 * numbers[i], len(numbers) + 2, numbers[i]):
+            for multiple in range(
+                                numbers[i] * numbers[i],
+                                len(numbers) + 2, numbers[i]
+                                ):
                 numbers[multiple - 2] = False
     return [x for x in numbers if x]
 
 
-def cycle_digit(number):
+def cycle_digits(number):
     return number[-1] + number[:-1]
 
 
-def find_cyclic_primes(numbers):
-    cyclic_numbers = []
-    numbers_dict = dict([(str(number), True) for number in numbers])
-    for number in numbers:
+def find_cyclic_primes(primes):
+    """Returns a list of all cyclic primes
+
+    Given a list of prime numbers, this function tests if the prime
+    is a cyclic prime by using a dictionary, and returns all cyclic primes
+    """
+    cyclic_primes = []
+    primes_dict = dict([(str(number), True) for number in primes])
+    for number in primes:
         current_number = str(number)
         cyclic = True
         for _ in range(len(current_number)):
-            if not numbers_dict.get(current_number, False):
+            if not primes_dict.get(current_number, False):
                 cyclic = False
                 break
-            current_number = cycle_digit(current_number)
+            current_number = cycle_digits(current_number)
         if cyclic:
-            cyclic_numbers.append(number)
-    return cyclic_numbers
+            cyclic_primes.append(number)
+    return cyclic_primes
 
 
 print(sum(find_cyclic_primes(generate_primes(1000000))))
