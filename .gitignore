@@ -1,5 +1,9 @@
 # IDE specifics
 .vscode/
+.idea/
+
+# mac
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
