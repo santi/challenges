@@ -18,7 +18,7 @@ def part_1():
     return sum(map(get_required_fuel, rocket_modules))
 
 
-print(part_1())
+print(part_1())  # 3405721
 
 
 def get_required_fuel_expanded(mass):
@@ -35,4 +35,4 @@ def part_2():
     return sum(map(get_required_fuel_expanded, rocket_modules))
 
 
-print(part_2())
+print(part_2())  # 5105716
