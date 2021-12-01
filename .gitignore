@@ -94,3 +94,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Node / JS stuff
+node_modules

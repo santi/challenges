@@ -1,0 +1,17 @@
+{
+  "name": "window01",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Solution for window 1 in Advent of Code 2021",
+  "main": "window01.ts",
+  "scripts": {
+    "solve": "node --loader ts-node/esm window01.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.2"
+  }
+}
