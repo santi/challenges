@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "strict": true,
+
+    "module": "esnext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+
+    "importHelpers": true,
+    "noImplicitOverride": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "lib": ["es2020"]
+  }
+}
