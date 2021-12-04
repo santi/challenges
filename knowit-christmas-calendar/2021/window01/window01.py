@@ -1,6 +1,5 @@
-import requests
+numbers = open("input.txt").readline().strip()
 
-CONTENT_URL = "https://julekalender-backend.knowit.no/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBNdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--0af4f790dec929a13e3615fdac11667323ea1597/tall.txt?disposition=inline"
 
 tokens = [
     ("femti", 50),
@@ -27,8 +26,6 @@ tokens = [
     ("to", 2),
     ("en", 1),
 ]
-
-numbers = requests.get(CONTENT_URL).content.decode("utf-8").strip()
 
 
 sum = 0
