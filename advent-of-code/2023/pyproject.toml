@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "advent-of-code-2023"
+version = "1.0.0"
+description = ""
+authors = ["Vemund Santi"]
+readme = "README.md"
+packages = []
+
+[tool.poetry.dependencies]
+python = "^3.12, <3.13"
+numpy = "^1.26.2"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
