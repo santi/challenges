@@ -120,26 +120,31 @@ def create_map(
     return create_mapper(map_intervals)
 
 
-with open("day05/input.txt") as f:
-    lines = f.readlines()
-    seeds = [int(seed) for seed in lines[0].strip().split(":")[1].strip().split(" ")]
+def main():
+    with open("day05/input.txt") as f:
+        lines = f.readlines()
+        seeds = [int(seed) for seed in lines[0].strip().split(":")[1].strip().split(" ")]
 
-    humid_to_location = create_map(lines)
-    temp_to_humid = create_map(lines)
-    light_to_temp = create_map(lines)
-    water_to_light = create_map(lines)
-    fert_to_water = create_map(lines)
-    soil_to_fert = create_map(lines)
-    seed_to_soil = create_map(lines)
+        humid_to_location = create_map(lines)
+        temp_to_humid = create_map(lines)
+        light_to_temp = create_map(lines)
+        water_to_light = create_map(lines)
+        fert_to_water = create_map(lines)
+        soil_to_fert = create_map(lines)
+        seed_to_soil = create_map(lines)
 
-    seed_to_location = chain(
-        seed_to_soil,
-        soil_to_fert,
-        fert_to_water,
-        water_to_light,
-        light_to_temp,
-        temp_to_humid,
-        humid_to_location,
-    )
-    print("Part 1:", min(seed_to_location([(seed, 1) for seed in seeds]))[0])
-    print("Part 2:", min(seed_to_location(seeds_to_seed_intervals(seeds)))[0])
+        seed_to_location = chain(
+            seed_to_soil,
+            soil_to_fert,
+            fert_to_water,
+            water_to_light,
+            light_to_temp,
+            temp_to_humid,
+            humid_to_location,
+        )
+        print("Part 1:", min(seed_to_location([(seed, 1) for seed in seeds]))[0])
+        print("Part 2:", min(seed_to_location(seeds_to_seed_intervals(seeds)))[0])
+
+
+if __name__ == "__main__":
+    main()
