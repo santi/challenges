@@ -3,6 +3,7 @@ from typing import Callable, Iterable, TypeVar
 
 T = TypeVar("T")
 type SeedInterval = tuple[int, int]
+type MapInterval = tuple[int, int, int]
 
 
 def chain(*funcs: Callable[[T], T]) -> Callable[[T], T]:
@@ -26,14 +27,14 @@ def seeds_to_seed_intervals(seeds: list[int]) -> list[SeedInterval]:
 
 
 def create_mapper(
-    ranges: list[tuple[int, int, int]]
+    map_intervals: list[MapInterval],
 ) -> Callable[[list[SeedInterval]], list[SeedInterval]]:
     def mapper(source_ranges: list[SeedInterval]) -> list[SeedInterval]:
         destination_ranges: set[SeedInterval] = set()
         for source_start, source_length in source_ranges:
             any_match = False
             source_end = source_start + source_length - 1
-            for range_source_start, range_destination_start, range_length in ranges:
+            for range_source_start, range_destination_start, range_length in map_intervals:
                 range_source_end = range_source_start + range_length - 1
                 if range_source_end < source_start:  # outside of range, range is before source
                     continue
@@ -107,7 +108,7 @@ def create_mapper(
 def create_map(
     lines: list[str],
 ) -> Callable[[list[SeedInterval]], list[SeedInterval]]:
-    ranges: list[tuple[int, int, int]] = []
+    map_intervals: list[MapInterval] = []
     while lines:
         line = lines.pop()
         if line.strip() == "":
@@ -115,9 +116,8 @@ def create_map(
         if line.strip().endswith("map:"):
             break
         destination_start, source_start, range_length = line.split(" ")
-        ranges.append((int(source_start), int(destination_start), int(range_length)))
-    ranges.sort(key=lambda x: x[0])
-    return create_mapper(ranges)
+        map_intervals.append((int(source_start), int(destination_start), int(range_length)))
+    return create_mapper(map_intervals)
 
 
 with open("day05/input.txt") as f:
@@ -141,5 +141,5 @@ with open("day05/input.txt") as f:
         temp_to_humid,
         humid_to_location,
     )
-    print("Part 1:", min(seed_to_location([(seed, 1)])[0] for seed in seeds)[0])
+    print("Part 1:", min(seed_to_location([(seed, 1) for seed in seeds]))[0])
     print("Part 2:", min(seed_to_location(seeds_to_seed_intervals(seeds)))[0])
