@@ -35,6 +35,7 @@ def main():
             nodes[name] = {"L": left, "R": right}
 
         print("Part 1:", distance_to_goal(nodes, "AAA", directions, lambda node: node == "ZZZ"))
+        # This should not really work in the general case, but the path to the first Z is the same length as the loop from the Z node to itself
         print(
             "Part 2:",
             lcm(
