@@ -97,14 +97,46 @@ def visit(
             return
 
 
+def get_energized_fields(grid: list[list[str]], position: Position, direction: Direction) -> int:
+    visited: set[tuple[Position, Direction]] = set()
+    visit(grid, position, direction, visited)
+    return len(set(p for p, _ in visited))
+
+
+def get_maximum_energized_fields(grid: list[list[str]]) -> int:
+    max_visited = 0
+    max_visited = max(
+        max_visited,
+        *(get_energized_fields(grid, (0, i), Direction.RIGHT) for i in range(len(grid))),
+    )
+    max_visited = max(
+        max_visited,
+        *(
+            get_energized_fields(grid, (len(grid[i]) - 1, i), Direction.LEFT)
+            for i in range(len(grid))
+        ),
+    )
+    max_visited = max(
+        max_visited,
+        *(get_energized_fields(grid, (i, 0), Direction.DOWN) for i in range(len(grid[0]))),
+    )
+    max_visited = max(
+        max_visited,
+        *(
+            get_energized_fields(grid, (i, len(grid) - 1), Direction.UP)
+            for i in range(len(grid[0]))
+        ),
+    )
+    return max_visited
+
+
 def main():
     with open("day16/input.txt") as f:
         lines = f.readlines()
     grid: list[list[str]] = [list(line.strip()) for line in lines]
 
-    visited: set[tuple[Position, Direction]] = set()
-    visit(grid, (0, 0), Direction.RIGHT, visited)
-    print("Part 1:", len(set(p for p, _ in visited)))
+    print("Part 1:", get_energized_fields(grid, (0, 0), Direction.RIGHT))
+    print("Part 2:", get_maximum_energized_fields(grid))
 
 
 if __name__ == "__main__":
